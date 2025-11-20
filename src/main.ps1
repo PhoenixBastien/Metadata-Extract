@@ -5,7 +5,9 @@ function Get-Metadata {
 
     $timestamp = Get-Date -f yyyyMMddHHmmss
     $folderName = Split-Path $RootPath -Leaf
-    $outPath = ".\out\$folderName - $timestamp.csv"
+    $outDir = .\out
+    if (!(Test-Path $outDir)) { New-Item $outDir -ItemType Directory }
+    $outPath = "$outDir\$folderName - $timestamp.csv"
     $folders = Get-ChildItem -LiteralPath $RootPath -Recurse -Directory
 
     # Define file types that usually have extended properties
@@ -62,7 +64,7 @@ function Get-Metadata {
         }
     } -ThrottleLimit 8
 
-    $results | Export-Csv -LiteralPath $outPath -Encoding utf8 -NoTypeInformation
+    $results | Export-Csv -LiteralPath $outPath -Encoding ansi -NoTypeInformation
 }
 
 Measure-Command { Get-Metadata "\\$Env:USERDNSDOMAIN\dfs\Groups\RECORDS" }
