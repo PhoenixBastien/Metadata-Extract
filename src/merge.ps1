@@ -3,9 +3,8 @@ function Merge-CsvFiles {
         [string]$MergeDir
     )
 
-    if (!(Test-Path $mergeDir)) { return }
-
     $timestamp = Get-Date -f yyyyMMddHHmmss
+    if (!(Test-Path $mergeDir)) { return }
     $outDir = ".\out"
     if (!(Test-Path $outDir)) { New-Item $outDir -ItemType Directory }
     $outPath = "$outDir\merged - $timestamp.csv"
