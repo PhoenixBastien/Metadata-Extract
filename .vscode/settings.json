@@ -1,0 +1,6 @@
+{
+    "powershell.powerShellAdditionalExePaths": {
+        "PowerShell 7": "C:\\Users\\Phoenix.Bastien\\Documents\\PowerShell-7.5.4-win-x64\\pwsh.exe"
+    },
+    "powershell.powerShellDefaultVersion": "PowerShell 7"
+}
