@@ -36,6 +36,7 @@ function Get-Metadata {
             if ($folderObj -and ($using:supportedExtensions -contains $ext)) {
                 $item = $folderObj.ParseName($file.Name)
                 if ($item) {
+                    # https://learn.microsoft.com/en-us/windows/win32/properties/props
                     $fmtid = "{F29F85E0-4FF9-1068-AB91-08002B27B3D9}"
                     $author = [string]$item.ExtendedProperty("$fmtid 4")
                     $lastAuthor = $item.ExtendedProperty("$fmtid 8")
