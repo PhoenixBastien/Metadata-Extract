@@ -67,5 +67,23 @@ function Get-Metadata {
     $results | Export-Csv -LiteralPath $outPath -Encoding ansi -NoTypeInformation
 }
 
+function Merge-CsvFiles {
+    param (
+        [string]$MergeDir
+    )
+
+    if (!(Test-Path $mergeDir)) { return }
+
+    $timestamp = Get-Date -f yyyyMMddHHmmss
+    $outDir = ".\out"
+    if (!(Test-Path $outDir)) { New-Item $outDir -ItemType Directory }
+    $outPath = "$outDir\merged - $timestamp.csv"
+
+    Get-ChildItem $MergeDir -Filter *.csv | Select-Object -ExpandProperty FullName |
+    Import-Csv | Export-Csv $outPath -Encoding ansi -NoTypeInformation -Append
+}
+
 Measure-Command { Get-Metadata "\\$Env:USERDNSDOMAIN\dfs\Groups\RECORDS" }
 # Measure-Command { Get-Metadata "$Env:USERPROFILE\Documents" }
+
+# Merge-CsvFiles ".\out\merge"
